@@ -6,12 +6,12 @@ use $useClassName;
 
 final class $className  extends $baseClassName
 {
-    public function up()
+    public function run()
     {
         $now = (new DateTime())->format('Y-m-d H:i:s');
         $type_code = Component\WorkerInterface::JOB_TYPE_CODE;
         $job_type = $this->fetchRow("SELECT * FROM kojo_job_type where type_code = '$type_code'");
-        $this->table('kojo_job')->insert([[
+        $this->table('kojo_job')->insert([
             'type_code' => $type_code,
             'name' => $job_type['name'],
             'priority' => $job_type['default_importance'],
@@ -21,7 +21,7 @@ final class $className  extends $baseClassName
             'assigned_state' => 'waiting',
             'previous_state' => 'new',
             'worker_uri' => $job_type['worker_uri'],
-            'worker_method' => $job_type['work'],
+            'worker_method' => $job_type['worker_method'],
             'can_work_in_parallel' => $job_type['can_work_in_parallel'],
             'last_transition_date_time' => $now,
             'last_transition_micro_time' => hrtime(true),
@@ -31,12 +31,6 @@ final class $className  extends $baseClassName
             'times_crashed' => 0,
             'times_panicked' => 0,
             'created_at_date_time' => $now,
-        ]]);
-    }
-
-    public function down()
-    {
-        $typeCode = Component\WorkerInterface::JOB_TYPE_CODE;
-        $this->execute("DELETE FROM kojo_job where type_code  = '$typeCode'");
+        ])->saveData();
     }
 }
