@@ -1,6 +1,6 @@
-# [Phinx](https://github.com/cakephp/phinx) templates for [Kōjō](https://github.com/neighborhoods/Kojo)
+# Phinx templates for Kōjō
 
-A developer utility to generate Kōjō related Phinx migrations and seeds.
+A developer utility to generate [Kōjō](https://github.com/neighborhoods/Kojo) related [Phinx](https://github.com/cakephp/phinx) migrations and seeds.
 
 ## Install
 
@@ -9,6 +9,10 @@ Via Composer as a development dependency
 ``` bash
 $ composer require --dev neighborhoods/kojo-phinx-templates
 ```
+
+You should also have [Phinx](https://github.com/cakephp/phinx) and [Kōjō](https://github.com/neighborhoods/Kojo) as direct dependencies. Don't rely on this package pulling them in, especially since this is a dev dependency.
+
+This package requires Phinx 0.12.5 or above. If you're having issues with running the command above, send the `composer.json` file to the code owner.
 
 ## Use cases
 
