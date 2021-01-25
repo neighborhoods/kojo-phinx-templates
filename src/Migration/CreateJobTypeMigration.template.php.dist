@@ -2,12 +2,25 @@
 declare(strict_types=1);
 $namespaceDefinition
 use Neighborhoods\Kojo\Api\V1\Job;
-use Neighborhoods\Product\Component as Component;
 use $useClassName;
 use Symfony\Component\Finder\Finder;
 
 final class $className  extends $baseClassName
 {
+    // Always Edit These. Do NOT use external class constants
+    // Take the raw value from \Neighborhoods\Product\Component\WorkerInterface::JOB_TYPE_CODE;
+    private const JOB_TYPE_CODE = '';
+    // Take the raw value '\\Neighborhoods\\Product\\Component\\Worker\\Proxy'
+    // Escape backslashes
+    private const WORKER_CLASS_URI = '';
+    private const JOB_TYPE_NAME = '';
+    private const CAN_WORK_IN_PARALLEL = false;
+    private const DEFAULT_IMPORTANCE = 0;
+    private const SCHEDULE_LIMIT = 1; // 0 if parallel, 1 if not
+    private const SCHEDULE_LIMIT_ALLOWANCE = 1; // 0 if parallel, 1 if not
+    //private const CRON_EXPRESSION = '* * * * *';
+    throw Exception('Update the values above and remove this line.');
+
     public function up()
     {
         $appDir = getcwd();
@@ -21,23 +34,24 @@ final class $className  extends $baseClassName
             ->addYmlServiceFinder($finder)
             ->getNewJobTypeRegistrar();
 
-        $jobCreator->setCode(Component\WorkerInterface::JOB_TYPE_CODE)
-            ->setWorkerClassUri(Component\Worker\Proxy::class)
+        $jobCreator->setCode(self::JOB_TYPE_CODE)
+            ->setWorkerClassUri(self::WORKER_CLASS_URI)
             ->setWorkerMethod('work')
-            ->setName(throw new Exception('Put the job type description here'))
-        //  ->setCronExpression('* * * * *')
-            ->setCanWorkInParallel(false)
-            ->setDefaultImportance(10)
-            ->setScheduleLimit(0)
+            ->setName(self::JOB_TYPE_NAME)
+        //  ->setCronExpression(self::CRON_EXPRESSION)
+            ->setCanWorkInParallel(self::CAN_WORK_IN_PARALLEL)
+            ->setDefaultImportance(self::DEFAULT_IMPORTANCE)
+            ->setScheduleLimit(self::SCHEDULE_LIMIT)
+            ->setScheduleLimitAllowance(self::SCHEDULE_LIMIT_ALLOWANCE)
             ->setIsEnabled(true)
             ->setAutoCompleteSuccess(false)
-            ->setAutoDeleteIntervalDuration('PT1M');
+            ->setAutoDeleteIntervalDuration('PT0S');
         $jobCreator->save();
     }
 
     public function down()
     {
-        $typeCode = Component\WorkerInterface::JOB_TYPE_CODE;
+        $typeCode = self::JOB_TYPE_CODE;
         $this->execute("DELETE FROM kojo_job_type where type_code  = '$typeCode'");
     }
 }

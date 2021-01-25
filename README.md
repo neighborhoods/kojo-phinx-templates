@@ -38,8 +38,7 @@ For each new worker generate a migration defining the job type. In these example
 vendor/bin/phinx create CreateObserverJobType --template=vendor/neighborhoods/kojo-phinx-templates/src/Migration/CreateJobTypeMigration.template.php.dist
 ```
 
-Open the generated migration, update the component namespace at the top and job type attributes.  
-The migration assumes the worker is named `Worker` and its actor family is generated using the [Kojo Worker Decorator Component](https://github.com/neighborhoods/KojoWorkerDecoratorComponent).
+Open the generated migration, update the job type attributes. The values in the migration should not depend on other classes. Copy constant values, rather than referencing them.
 
 ### Job Scheduling
 
@@ -48,7 +47,8 @@ If it makes sense, create a seed scheduling the job. This is useful for jobs res
 ``` bash
 vendor/bin/phinx seed:create ScheduleObserverJob --template=vendor/neighborhoods/kojo-phinx-templates/src/Seed/ScheduleJobSeed.template.php.dist
 ```
-Open the generated seed and update the component namespace.
+Open the generated seed and update the component namespace at top of the file.
+The seeder assumes the worker is named `Worker` and its actor family is generated using the [Kojo Worker Decorator Component](https://github.com/neighborhoods/KojoWorkerDecoratorComponent).
 
 Run the generated seed whenever you want to start the job.
 ``` bash

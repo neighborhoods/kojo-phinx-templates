@@ -8,29 +8,32 @@ final class $className  extends $baseClassName
 {
     public function run()
     {
-        $now = (new DateTime())->format('Y-m-d H:i:s');
-        $type_code = Component\WorkerInterface::JOB_TYPE_CODE;
-        $job_type = $this->fetchRow("SELECT * FROM kojo_job_type where type_code = '$type_code'");
+        $typeCode = Component\WorkerInterface::JOB_TYPE_CODE;
+
+        $jobType = $this->fetchRow("SELECT * FROM kojo_job_type where type_code = '$typeCode'");
+
+        $now = new DateTime();
+        $workAtDateTime = $now;
         $this->table('kojo_job')->insert([
-            'type_code' => $type_code,
-            'name' => $job_type['name'],
-            'priority' => $job_type['default_importance'],
-            'importance' => $job_type['default_importance'],
-            'work_at_date_time' => $now,
+            'type_code' => $typeCode,
+            'name' => $jobType['name'],
+            'priority' => $jobType['default_importance'],
+            'importance' => $jobType['default_importance'],
+            'work_at_date_time' => $workAtDateTime->format('Y-m-d H:i:s'),
             'next_state_request' => 'working',
             'assigned_state' => 'waiting',
             'previous_state' => 'new',
-            'worker_uri' => $job_type['worker_uri'],
-            'worker_method' => $job_type['worker_method'],
-            'can_work_in_parallel' => $job_type['can_work_in_parallel'],
-            'last_transition_date_time' => $now,
+            'worker_uri' => $jobType['worker_uri'],
+            'worker_method' => $jobType['worker_method'],
+            'can_work_in_parallel' => $jobType['can_work_in_parallel'],
+            'last_transition_date_time' => $now->format('Y-m-d H:i:s'),
             'last_transition_micro_time' => hrtime(true),
             'times_worked' => 0,
             'times_retried' => 0,
             'times_held' => 0,
             'times_crashed' => 0,
             'times_panicked' => 0,
-            'created_at_date_time' => $now,
+            'created_at_date_time' => $now->format('Y-m-d H:i:s'),
         ])->saveData();
     }
 }

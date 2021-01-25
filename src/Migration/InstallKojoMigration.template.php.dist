@@ -17,12 +17,17 @@ final class $className extends $baseClassName
 
     protected function executeKojoCommand(string $command)
     {
+        // Consider defining the appDir relative to the migration file
+        // $appDir = __DIR__ . '/../..';
+        $appDir = getcwd();
+        // You might need to update the location of the Kojo environment parameters below
+        $kojoEnvironmentPath = $appDir . '/kojo-environment';
+
         $output = [];
         $exitCode = 0;
-        $appDir = getcwd();
 
         exec(
-            "$appDir/vendor/bin/kojo $command $appDir/kojo-environment",
+            "$appDir/vendor/bin/kojo $command $kojoEnvironmentPath",
             $output,
             $exitCode
         );
