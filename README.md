@@ -61,4 +61,4 @@ Generate a seeding migration by running the command below.
 ``` bash
 vendor/bin/phinx create SeedObserverJob --template=vendor/neighborhoods/kojo-phinx-templates/src/Migration/SeedJobMigration.template.php.dist
 ```
-Open the generated migration and update the Seed class name in the `up()` and `down()` methods.
+Open the generated migration and update the Seed class name in the required seed file path, `up()` and `down()` methods.
