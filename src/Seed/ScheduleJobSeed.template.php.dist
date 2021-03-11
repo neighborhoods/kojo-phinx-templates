@@ -1,21 +1,21 @@
 <?php
 declare(strict_types=1);
 $namespaceDefinition
-use Neighborhoods\Product\Component as Component;
 use $useClassName;
 
 final class $className  extends $baseClassName
 {
+    public const JOB_TYPE_CODE = 'update_me';
+
     public function run()
     {
-        $typeCode = Component\WorkerInterface::JOB_TYPE_CODE;
-
-        $jobType = $this->fetchRow("SELECT * FROM kojo_job_type where type_code = '$typeCode'");
+        throw new LogicException('Update the job type code and remove this line');
+        $jobType = $this->fetchRow('SELECT * FROM kojo_job_type where type_code = ' . self::JOB_TYPE_CODE);
 
         $now = new DateTime();
         $workAtDateTime = $now;
         $this->table('kojo_job')->insert([
-            'type_code' => $typeCode,
+            'type_code' => self::JOB_TYPE_CODE,
             'name' => $jobType['name'],
             'priority' => $jobType['default_importance'],
             'importance' => $jobType['default_importance'],
