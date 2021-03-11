@@ -40,6 +40,8 @@ vendor/bin/phinx create CreateObserverJobType --template=vendor/neighborhoods/ko
 
 Open the generated migration, update the job type attributes. The values in the migration should not depend on other classes. Copy constant values, rather than referencing them.
 
+Thanks to @jpmarcotte for insights on this one.
+
 ### Job Scheduling
 
 If it makes sense, create a seed scheduling the job. This is useful for jobs rescheduling themselves, providing a way to start the initial job.
