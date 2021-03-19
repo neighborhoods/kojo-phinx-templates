@@ -44,14 +44,21 @@ Thanks to @jpmarcotte for insights on this one.
 
 ### Job Scheduling
 
-If it makes sense, create a seed scheduling the job. This is useful for jobs rescheduling themselves, providing a way to start the initial job.
+If it makes sense, create a seeder scheduling the job. This is useful for jobs rescheduling themselves, providing a way to start the initial job.
 
 ``` bash
-vendor/bin/phinx seed:create ScheduleObserverJob --template=vendor/neighborhoods/kojo-phinx-templates/src/Seed/ScheduleJobSeed.template.php.dist
+vendor/bin/phinx seed:create ObserverJobSeeder --template=vendor/neighborhoods/kojo-phinx-templates/src/Seed/JobSeeder.template.php.dist
 ```
-Open the generated seed and update the `JOB_TYPE_CODE` constant.
+Open the generated seeder and update the `JOB_TYPE_CODE` constant.
 
-Run the generated seed whenever you want to start the job.
+Run the generated seeder whenever you want to start the job.
 ``` bash
-vendor/bin/phinx seed:run -s ScheduleObserverJob
+vendor/bin/phinx seed:run -s ObserverJobSeeder
 ```
+
+Jobs rescheduling themselves should be seeded after their job type creation. Integrating the seeding into migrations simplifies the deployment process and ensures the job is seeded only once.  
+Generate a seeding migration by running the command below.
+``` bash
+vendor/bin/phinx create SeedObserverJob --template=vendor/neighborhoods/kojo-phinx-templates/src/Migration/SeedJobMigration.template.php.dist
+```
+Open the generated migration and update the Seed class name in the required seed file path, `up()` and `down()` methods.
