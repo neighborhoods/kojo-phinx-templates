@@ -5,7 +5,7 @@ use Neighborhoods\Kojo\Api\V1\Job;
 use $useClassName;
 use Symfony\Component\Finder\Finder;
 
-final class $className  extends $baseClassName
+final class $className extends $baseClassName
 {
     // Always Edit These. Do NOT use external class constants
     // Take the raw value from \Neighborhoods\Product\Component\WorkerInterface::JOB_TYPE_CODE;
