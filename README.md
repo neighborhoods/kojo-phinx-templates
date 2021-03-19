@@ -56,7 +56,7 @@ Run the generated seeder whenever you want to start the job.
 vendor/bin/phinx seed:run -s ObserverJobSeeder
 ```
 
-Rescheduling jobs should be seeded after their job type creation. Integrating the seeding into migrations simplifies the deployment process and ensures the job is seeded only once.  
+Jobs rescheduling themselves should be seeded after their job type creation. Integrating the seeding into migrations simplifies the deployment process and ensures the job is seeded only once.  
 Generate a seeding migration by running the command below.
 ``` bash
 vendor/bin/phinx create SeedObserverJob --template=vendor/neighborhoods/kojo-phinx-templates/src/Migration/SeedJobMigration.template.php.dist
